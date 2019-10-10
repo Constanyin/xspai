@@ -1,6 +1,47 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.a.mapper.IUserMapper">
+<mapper namespace="com.a.mapper.IUserShowMapper">
+    <resultMap id="FirstResultMap" type="User">
+        <result property="createDate" column="create_date"/>
+        <result property="columnName" column="column_name"/>
+    </resultMap>
 
+    <resultMap id="FMao" type="UserData">
+        <result property="userName" column="u_username"/>
+        <result property="sex" column="u_sex"/>
+        <result property="email" column="u_email"/>
+        <result property="phone" column="u_phone"/>
+    </resultMap>
+
+    <resultMap id="FC" type="Usercolumn">
+
+        <result property="isDelte"  column="is_delete"/>
+
+    </resultMap>
+    
+    
+    <!--根据用户ID查文章-->
+<select id="findByUid" resultMap="FirstResultMap">
+select id,name,article,create_date,loves,column_name from article where is_delete=1 and is_checked = 1 and user_id=#{id} ORDER BY CREATE_date DESC limit 0,10;
+</select>
+    <!--根据用户ID查用户信息-->
+    <select id="findUserByUid"  resultMap="FMao">
+        select id,u_username,u_sex,u_email,u_phone from user where u_id_delete=1 and is_checked =1 and id=#{id1};
+    </select>
+    <!--根据用户ID查询专栏-->
+    <select id="findcolumnByUid" resultMap="FC">
+        select id,name from `column` where is_delete=1;
+    </select>
+    <update id="update">
+        update user set u_username=#{User.userName},u_email=#{User.email},u_phone=#{User.phone} where u_id_delete=1 and id=#{User.id};
+    </update>
+    <!--根据专栏ID查询专栏名-->
+    <select id="cName" resultMap="FC">
+        select name from `column` where is_delete=1 and id=#{id3};
+    </select>
+    <!--根据专栏名查询文章-->
+    <select id="findText" resultMap="FirstResultMap">
+        select id,name,article,create_date,loves,column_name from  article where is_delete=1 and is_checked=1 and column_name=#{User1.columnName};
+    </select>
 </mapper>
