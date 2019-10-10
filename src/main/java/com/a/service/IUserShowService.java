@@ -1,7 +1,7 @@
 package com.a.service;
 
 
-import com.a.entity.User;
+import com.a.entity.UserArticle;
 import com.a.entity.UserData;
 import com.a.entity.Usercolumn;
 
@@ -23,5 +23,5 @@ Integer update(UserData userData);
 //根据专栏ID查询专栏名
 Usercolumn cName(Integer id);
 /*根据专栏名查询文章*/
-List findText(User user);
+List findText(UserArticle userarticle);
 }

@@ -1,6 +1,6 @@
 package com.a.service.Impl;
 
-import com.a.entity.User;
+import com.a.entity.UserArticle;
 import com.a.entity.UserData;
 import com.a.entity.Usercolumn;
 import com.a.mapper.IUserShowMapper;
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class UserShowServiceImpl implements IUserShowService {
 
     @Override
     public List ShowUserByUID(Integer id) {
-        List<User> byUid = userShowMapper.findByUid(id);
+        List<UserArticle> byUid = userShowMapper.findByUid(id);
         return byUid;
     }
 
@@ -54,9 +53,9 @@ public class UserShowServiceImpl implements IUserShowService {
     }
 
     @Override
-    public List findText(User user) {
-        log.info(user.getColumnName());
-        List<User> text = userShowMapper.findText(user);
+    public List findText(UserArticle userarticle) {
+        log.info(userarticle.getColumnName());
+        List<UserArticle> text = userShowMapper.findText(userarticle);
         log.info("查到的文章"+text);
         return text;
     }

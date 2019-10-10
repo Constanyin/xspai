@@ -1,11 +1,10 @@
 package com.a.controller;
 
 
-import com.a.entity.User;
+import com.a.entity.UserArticle;
 import com.a.entity.UserData;
 import com.a.entity.Usercolumn;
 import com.a.service.IUserShowService;
-import com.a.utils.UploadUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -16,7 +15,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -128,9 +126,9 @@ public class UserController {
         String name = usercolumn.getName();
         log.info("查到的专栏"+name);
         /*根据专栏名查询文章*/
-        User user =new User(name);
-        log.info("专栏名"+user.getColumnName());
-        List list = userShowService.findText(user);
+        UserArticle userarticle =new UserArticle(name);
+        log.info("专栏名"+ userarticle.getColumnName());
+        List list = userShowService.findText(userarticle);
         log.info("查到的文章"+list);
         String string = JSON.toJSONString(list);
         return string;

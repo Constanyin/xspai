@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class User {
+public class UserArticle {
     private Integer id;
     private String  name;
     private String article;
@@ -17,10 +17,10 @@ public class User {
     private Integer loves;
     private String columnName;
 
-    public User() {
+    public UserArticle() {
     }
 
-    public User(Integer id, String name, String article, String createDate, Integer loves, String columnName) {
+    public UserArticle(Integer id, String name, String article, String createDate, Integer loves, String columnName) {
         this.id = id;
         this.name = name;
         this.article = article;
@@ -29,7 +29,7 @@ public class User {
         this.columnName = columnName;
     }
 
-    public User(String columnName) {
+    public UserArticle(String columnName) {
         this.columnName = columnName;
     }
 }
