@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a.mapper.IArticleMapper">
+    <resultMap id="article" type="com.a.entity.Article">
+        <id property="id" column="id"></id>
+        <result property="headPic" column="head_pic"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="columnName" column="column_name"></result>
+        <result property="isDelete" column="is_delete"></result>
+    </resultMap>
+
+    <resultMap id="like" type="com.a.entity.Article">
+        <id property="id" column="id"></id>
+    </resultMap>
+
+    <!--    根据id查找文章-->
+    <select id="findSingleById" resultMap="article">
+        select * from article a where is_delete=1 and id=#{a_id};
+    </select>
+
+    <insert id="add">
+        insert into article(name,article) values(#{art.name},#{art.article});
+    </insert>
+
+    <update id="like">
+        update article set loves=#{like}+1 where id=#{a_id};
+    </update>
+
+    <select id="findLike" resultMap="like">
+        select a.loves from article a where is_delete=1 and id=#{a_id};
+    </select>
+
+</mapper>

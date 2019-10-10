@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>SimpleMarkDownEditor-Demo</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <!--
+        weui:微信官方ui
+        stylesheet:插件自带的ui（保留）
+        simplede:markdown编辑器
+    -->
+    <link href="https://cdn.bootcss.com/weui/2.1.2/style/weui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://simplemde.com/stylesheets/stylesheet.css">
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    <style>
+        .CodeMirror {
+            height: 500px; /*SimpleMDE的高度*/
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <section class="main-content">
+                <h1>添加文章</h1>
+                <input id="name" type="text" class="weui-input" placeholder="请输入标题" required autofocus>
+                <br/><br/>
+                <textarea id="detail"></textarea>
+                <a href="javascript:void(0);" id="submit" class="weui-btn weui-btn_primary">添加</a>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        var url = "http://localhost:8080/xspai/article/save";
+        //初始化SimpleMDE
+        var simplemde = new SimpleMDE({
+            autosave: {
+                enabled: true,
+                uniqueId: "MyUniqueID",
+                delay: 1000
+            },
+            status: ["autosave", "lines", "words"],
+            spellChecker: false,
+            element: document.getElementById("detail"),
+            promptURLs: true,
+            toolbar: [
+                "bold", "italic", "strikethrough", "heading", "code", "quote", "unordered-list",
+                "ordered-list", "clean-block", "link", "image", "table", "horizontal-rule", "preview", "side-by-side", "fullscreen", "guide",
+                {
+                    name: "uploadImage",//自定义按钮
+                    action: function customFunction(editor) {
+                        console.log(editor1);
+                    },
+                    className: "fa fa-star",
+                    title: "Upload Image"
+                }
+            ]
+        });
+        //store
+        $("#submit").on('click', function () {
+            console.log(simplemde.value());
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {name: $("#name").val(), article: simplemde.value()},
+                success: function (data) {
+                    alert("ok");
+                }
+            })
+            /*            .done(function (result) {
+                        alert(result.msg);
+                    });*/
+        });
+    </script>
+</div>
+</body>
+</html>

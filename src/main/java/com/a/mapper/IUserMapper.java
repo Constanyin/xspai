@@ -1,5 +1,9 @@
 package com.a.mapper;
 
-public interface IUserMapper {
+import com.a.entity.User;
+import org.apache.ibatis.annotations.Param;
 
+public interface IUserMapper {
+    //查询用户对象
+    User FindById(@Param("uid")int id);
 }
